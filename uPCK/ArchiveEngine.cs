@@ -173,7 +173,7 @@ namespace uPCK
                 form.UpdateProgress(form.Controls["lblProgress"], $"Compressing " +
                                                     $"{(form.Controls["progBar"] as ProgressBar).Value}" +
                                                     $"/{(form.Controls["progBar"] as ProgressBar).Maximum}: {file}");
-                byte[] decompressed = File.ReadAllBytes(Path.Combine(dir, files[(form.Controls["progBar"] as ProgressBar).Value]));
+                byte[] decompressed = File.ReadAllBytes(Path.Combine(dir, files[((ProgressBar) form.Controls["progBar"]).Value]));
                 byte[] compressed = PCKZlib.Compress(decompressed, compressionLevel);
                 var entry = new PCKFileEntry()
                 {
@@ -183,7 +183,9 @@ namespace uPCK
                     CompressedSize = compressed.Length
                 };
                 stream.WriteBytes(compressed);
-                    byte[] buffer = entry.Write(compressionLevel);
+                ThreadPool.QueueUserWorkItem(x => {
+                    PCKFileEntry e = x as PCKFileEntry;
+                    byte[] buffer = e.Write(compressionLevel);
                     lock (FileTable)
                     {
                         FileTable.Write(BitConverter.GetBytes(buffer.Length ^ stream.key.KEY_1), 0, 4);
@@ -191,6 +193,7 @@ namespace uPCK
                         FileTable.Write(buffer, 0, buffer.Length);
                     }
                     events.Signal();
+                }, entry);
             }
             events.Wait();
             long FileTableOffset = stream.Position;

@@ -7,7 +7,6 @@ C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\uPCK.application
 C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\uPCK.exe
 C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\uPCK.pdb
 C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\zlib.net.dll
-C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.csprojAssemblyReference.cache
 C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.exe.manifest
 C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.application
 C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.csproj.CopyComplete

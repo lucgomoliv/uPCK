@@ -55,9 +55,10 @@ namespace uPCK
             BinaryWriter bw = new BinaryWriter(msb);
             bw.Write(Encoding.GetEncoding("GB2312").GetBytes(Path.Replace("/", "\\")));
             bw.BaseStream.Seek(260, SeekOrigin.Begin);
-            bw.Write(Offset);
+            bw.Write((uint)Offset);
             bw.Write(Size);
             bw.Write(CompressedSize);
+            bw.Write(0);
             bw.BaseStream.Seek(0, SeekOrigin.Begin);
             bw.Close();
             byte[] compressed = PCKZlib.Compress(buffer, CompressionLevel);
