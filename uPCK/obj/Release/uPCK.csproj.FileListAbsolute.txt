@@ -1,0 +1,15 @@
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\uPCK.exe.config
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\uPCK.exe.manifest
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\uPCK.application
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\uPCK.exe
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\uPCK.pdb
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.csprojAssemblyReference.cache
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.Form1.resources
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.Properties.Resources.resources
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.csproj.GenerateResource.cache
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.exe.manifest
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.application
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.exe
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.pdb
+C:\Users\00472409\source\repos\uPCK\uPCK\bin\Release\zlib.net.dll
+C:\Users\00472409\source\repos\uPCK\uPCK\obj\Release\uPCK.csproj.CopyComplete
