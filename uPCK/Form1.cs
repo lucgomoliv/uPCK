@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows.Forms;
 using WK.Libraries.BetterFolderBrowserNS;
+using zlib;
 
 namespace uPCK
 {
@@ -10,6 +12,18 @@ namespace uPCK
 
         public Form1()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+                {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
             InitializeComponent();
             cmbCompLvl.SelectedIndex = 9;
             archive = new ArchiveEngine(this);
