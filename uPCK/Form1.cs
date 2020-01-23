@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
+using WK.Libraries.BetterFolderBrowserNS;
 
 namespace uPCK
 {
@@ -30,7 +30,7 @@ namespace uPCK
         }
         private void btnCompress_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            BetterFolderBrowser fbd = new BetterFolderBrowser();
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 archive.compressionLevel = int.Parse(cmbCompLvl.Text);

@@ -155,7 +155,7 @@ namespace uPCK
                 File.Delete(pck);
             if (File.Exists(pck.Replace(".pck", ".pkx")))
                 File.Delete(pck.Replace(".pck", ".pkx"));
-            form.UpdateProgress(form.Controls["lblProgress"], "FileList");
+            form.UpdateProgress(form.Controls["lblProgress"], "Listing the files");
             string[] files = Directory.GetFiles(dir, "*", SearchOption.AllDirectories);
             PCKStream stream = new PCKStream(pck);
             stream.WriteInt32(stream.key.FSIG_1);
