@@ -14,3 +14,15 @@ C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.exe
 C:\Users\luqui\Source\Repos\uPCK\uPCK\obj\Debug\uPCK.pdb
 C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\BetterFolderBrowser.dll
 C:\Users\luqui\Source\Repos\uPCK\uPCK\bin\Debug\BetterFolderBrowser.xml
+E:\Jogos\PWs\DEV\uPCK\uPCK\bin\Debug\uPCK.exe.config
+E:\Jogos\PWs\DEV\uPCK\uPCK\bin\Debug\uPCK.exe.manifest
+E:\Jogos\PWs\DEV\uPCK\uPCK\bin\Debug\uPCK.application
+E:\Jogos\PWs\DEV\uPCK\uPCK\bin\Debug\uPCK.exe
+E:\Jogos\PWs\DEV\uPCK\uPCK\bin\Debug\uPCK.pdb
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.Form1.resources
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.Properties.Resources.resources
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.csproj.GenerateResource.cache
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.exe.manifest
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.application
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.exe
+E:\Jogos\PWs\DEV\uPCK\uPCK\obj\Debug\uPCK.pdb

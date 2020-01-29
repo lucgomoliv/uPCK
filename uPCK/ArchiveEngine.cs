@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace uPCK
 {
@@ -30,6 +31,9 @@ namespace uPCK
             timers.Start();
             this.form = form;
             compressionLevel = int.Parse((form.Controls["cmbCompLvl"] as ComboBox).Text);
+            int work, io;
+            ThreadPool.GetMinThreads(out work, out io);
+            ThreadPool.SetMinThreads(150, io);
         }
 
         public int GetFilesCount(PCKStream stream)
@@ -164,37 +168,40 @@ namespace uPCK
             form.UpdateProgressBar(form.Controls["progBar"], "max", files.Length);
             MemoryStream FileTable = new MemoryStream();
             events = new CountdownEvent(files.Length);
-            for (form.UpdateProgressBar(form.Controls["progBar"], "value", 0);
-                 (form.Controls["progBar"] as ProgressBar).Value <
-                 (form.Controls["progBar"] as ProgressBar).Maximum;
-                 form.UpdateProgressBar(form.Controls["progBar"], "value", ((ProgressBar)form.Controls["progBar"]).Value+1))
+            ManualResetEvent[] mres = new ManualResetEvent[files.Length];
+            for (int i = 0; i < files.Length; i++)
             {
-                string file = files[(form.Controls["progBar"] as ProgressBar).Value].Replace(dir, "").Replace("/", "\\").Remove(0, 1);
-                form.UpdateProgress(form.Controls["lblProgress"], $"Compressing " +
-                                                    $"{(form.Controls["progBar"] as ProgressBar).Value}" +
-                                                    $"/{(form.Controls["progBar"] as ProgressBar).Maximum}: {file}");
-                byte[] decompressed = File.ReadAllBytes(Path.Combine(dir, files[((ProgressBar) form.Controls["progBar"]).Value]));
-                byte[] compressed = PCKZlib.Compress(decompressed, compressionLevel);
-                var entry = new PCKFileEntry()
-                {
-                    Path = file,
-                    Offset = (uint)stream.Position,
-                    Size = decompressed.Length,
-                    CompressedSize = compressed.Length
-                };
-                stream.WriteBytes(compressed);
+                mres[i] = new ManualResetEvent(false);
                 ThreadPool.QueueUserWorkItem(x => {
-                    PCKFileEntry e = x as PCKFileEntry;
-                    byte[] buffer = e.Write(compressionLevel);
+                    int pos = (int)x;
+                    string file = files[pos].Replace(dir, "").Replace("/", "\\").Remove(0, 1);
+                    byte[] decompressed = File.ReadAllBytes(Path.Combine(dir, files[pos]));
+                    byte[] compressed = PCKZlib.Compress(decompressed, compressionLevel);
+                    var entry = new PCKFileEntry()
+                    {
+                        Path = file,
+                        Offset = (uint)stream.Position,
+                        Size = decompressed.Length,
+                        CompressedSize = compressed.Length
+                    };
+                    byte[] buffer = entry.Write(compressionLevel);
                     lock (FileTable)
                     {
                         FileTable.Write(BitConverter.GetBytes(buffer.Length ^ stream.key.KEY_1), 0, 4);
                         FileTable.Write(BitConverter.GetBytes(buffer.Length ^ stream.key.KEY_2), 0, 4);
                         FileTable.Write(buffer, 0, buffer.Length);
                     }
+                    if(pos > 0) mres[pos - 1].WaitOne();
+                    stream.WriteBytes(compressed);
+                    form.UpdateProgressBar(form.Controls["progBar"], "value", pos);
+                    form.UpdateProgress(form.Controls["lblProgress"], "Compressing " +
+                                                      ((ProgressBar)form.Controls["progBar"]).Value + "/" +
+                                                      ((ProgressBar)form.Controls["progBar"]).Maximum + " : " + file);
+                    mres[pos].Set();
                     events.Signal();
-                }, entry);
+                }, i);
             }
+            form.UpdateProgress(form.Controls["lblProgress"], "Waiting Threads to Finish");
             events.Wait();
             long FileTableOffset = stream.Position;
             stream.WriteBytes(FileTable.ToArray());

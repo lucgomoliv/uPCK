@@ -17,7 +17,7 @@ namespace uPCK
 			}
 			catch
 			{
-				MessageBox.Show("Bad zlib data");
+				//MessageBox.Show("Bad zlib data");
                 //return Decompress(bytes, size+=2);
 			}
 			return output;
